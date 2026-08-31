@@ -675,6 +675,16 @@
       document.querySelector("#tourTimeline").innerHTML=g.timeline.map(([k,v])=>`<div><strong>${k}</strong><p>${v.replace("{countries}",journey.countries.slice(0,3).join(", "))}</p></div>`).join("");
       document.querySelector("#choiceGrid").innerHTML=journeys.filter(j=>j.slug!==journey.slug).slice(0,3).map(j=>`<a class="related-card" href="${tourUrl(j)}"><strong>${g.related}</strong><h3>${j.title}</h3><p>${j.date} - ${j.countries.join(", ")}</p></a>`).join("");
     }
+    const rawApplyLanguage=applyLanguage;
+    applyLanguage=function(lang=currentLang){
+      rawApplyLanguage(lang);
+      const heroPlay=document.querySelector("#heroPlay");
+      if(heroPlay){
+        const label=currentLang==="en"?"Watch Video":"Putar Video";
+        heroPlay.innerHTML=`<span aria-hidden="true">Play</span><strong>${label}</strong>`;
+        heroPlay.setAttribute("aria-label",label);
+      }
+    };
     applyLanguage(currentLang);
   </script>
 </body>
